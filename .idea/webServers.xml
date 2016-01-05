@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="421fc4fa-118e-43b5-a00b-4a5a6ea20bb5" name="localNEOS" url="http://localhost">
+        <fileTransfer host="localhost" port="1122" privateKey="$USER_HOME$/.ssh/fwweissheiten" accessType="SFTP" passphrase="dfefdfcddfcbdfcbdfecdfcfdfcddfcfdfebdfdfdfcedfc3dfd9dfccdfd7" username="www" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

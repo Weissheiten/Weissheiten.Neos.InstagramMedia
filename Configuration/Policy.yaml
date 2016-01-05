@@ -1,0 +1,11 @@
+privilegeTargets:
+  TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
+    'Weissheiten.Neos.InstagramMedia:CollectionControllerActions':
+      matcher: 'method(Weissheiten\Neos\InstagramMedia\Controller\CollectionController->(index)Action())'
+
+roles:
+  'TYPO3.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
+        permission: GRANT
