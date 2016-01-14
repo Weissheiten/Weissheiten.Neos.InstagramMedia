@@ -44,9 +44,10 @@ class InstagramCollection {
     /**
      * @param string $title
      */
-    public function __construct($title) {
+    public function __construct($title, $description = "") {
         $this->instagramImages = new ArrayCollection();
         $this->title = $title;
+        $this->description = $description;
     }
 
     /**

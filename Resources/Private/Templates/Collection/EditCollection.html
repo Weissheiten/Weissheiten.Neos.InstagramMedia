@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+      xmlns:neos="http://typo3.org/ns/TYPO3/Neos/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="Title">Edit Instagram Collection "{instagramCollection.title}"</f:section>
+
+<f:section name="Content">
+    <f:form action="update" object="{instagramCollection}" objectName="instagramCollection">
+        <div class="form-group">
+            <label for="collectionDescriptionID">Collection Description</label>
+            <f:form.textarea property="description" rows="4" class="form-control" value="{instagramCollection.description}" placeholder="Collection description" id="collectionDescriptionID" />
+        </div>
+        <div class="form-group">
+            <f:link.action action="index" class="neos-button">{neos:backend.translate(id: 'cancel', value: 'Cancel')}</f:link.action>
+            <f:form.submit value="Save collection" class="neos-button neos-button-primary" />
+        </div>
+    </f:form>
+
+</f:section>

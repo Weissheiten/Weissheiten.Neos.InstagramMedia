@@ -26,4 +26,8 @@ class InstagramCollectionRepository extends \TYPO3\Flow\Persistence\Repository
     {
         return $this->createQuery()->execute()->getFirst();
     }
+
+    /**
+     *
+     */
 }

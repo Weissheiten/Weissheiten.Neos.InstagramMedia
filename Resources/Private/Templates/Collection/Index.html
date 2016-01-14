@@ -1,19 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	  xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+	  xmlns:neos="http://typo3.org/ns/TYPO3/Neos/ViewHelpers">
+
 <f:layout name="Default" />
 
-<f:section name="Title">Index view of Standard controller</f:section>
+<f:section name="Title">Instagram Collections</f:section>
 
 <f:section name="Content">
-	<h1>A freshly created Fluid template!</h1>
-	<p>Some data set by the controller:</p>
-	<ul>
-		
-		<f:for each="{foos}" as="foo">
-			<li>{foo}</li>
-		</f:for>
 
-		<f:link.action action="create" controller="CollectionController">
-			create new collection entry
-		</f:link.action>
-		
-	</ul>
+    <table class="neos-table">
+        <thead>
+        <tr>
+            <th>Collection Name</th>
+            <th>Collection Description</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <f:for each="{instagramCollections}" as="instagramCollection">
+                <tr>
+                    <td>{instagramCollection.title}</td>
+                    <td>{instagramCollection.description}</td>
+                    <td>
+                        <div class="neos-pull-right">
+                            <f:link.action action="editCollection" arguments="{instagramCollection: instagramCollection}" class="neos-button neos-button-primary" title="{neos:backend.translate(id: 'clickToEdit', value: 'Click to edit')}">
+                                <i class="icon-pencil icon-white"></i>
+                            </f:link.action>
+                            <button class="neos-button neos-button-danger" title="{neos:backend.translate(id: 'clickToDelete', value: 'Click to delete')}" data-toggle="modal" href="#{instagramCollection -> f:format.identifier()}">
+                                <i class="icon-trash icon-white"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <div class="neos-hide" id="{instagramCollection -> f:format.identifier()}">
+                        <div class="neos-modal">
+                            <div class="neos-modal-header">
+                                <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+                                <div class="neos-header">Do you really want to delete "{instagramCollection.title}"? This action cannot be undone.</div>
+                            </div>
+                            <div class="neos-modal-footer">
+                                <a href="#" class="neos-button" data-dismiss="modal">{neos:backend.translate(id: 'cancel', value: 'Cancel')}</a>
+                                <f:form action="delete" arguments="{instagramCollection: instagramCollection}" class="neos-inline">
+                                    <button class="neos-button neos-button-danger" title="Delete this Collection">
+                                        Yes, delete this collection
+                                    </button>
+                                </f:form>
+                            </div>
+                        </div>
+                        <div class="neos-modal-backdrop neos-in"></div>
+                    </div>
+                </tr>
+            </f:for>
+        </tbody>
+    </table>
+
+    <table class="neos-table">
+        <thead>
+        <tr>
+            <th>Collection Name</th>
+            <th>Collection Description</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <f:form method="post" action="create" object="{instagramCollection}" objectName="instagramCollection">
+                <tr>
+                    <td>
+                        <f:form.textfield property="title" class="form-control" placeholder="Collection title" id="collectionNameID" />
+                    </td>
+                    <td>
+                        <f:form.textfield property="description" class="form-control" placeholder="Collection description" id="collectionDescriptionID" />
+                    </td>
+                    <td>
+                        <div class="neos-pull-right">
+                            <f:form.submit value="{neos:backend.translate(id: 'add', value: 'Add')}" class="neos-button neos-button-primary" />
+                        </div>
+                    </td>
+                </tr>
+            </f:form>
+        </tbody>
+    </table>
+
+
+</f:section>
+
+<f:section name="ImageSearch">
+<br />
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="form-group">
+            <f:form.textfield placeholder="Tag" id="tagSearch" />
+            <f:form.button title="Search" class="neos-button neos-button-primary">Search</f:form.button>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        Results
+        {settings.clientID}
+
+
+    </div>
+</div>
+
 </f:section>
