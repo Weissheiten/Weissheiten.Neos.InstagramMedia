@@ -7,25 +7,17 @@ namespace Weissheiten\Neos\InstagramMedia\Service;
  */
 
 use TYPO3\Flow\Annotations as Flow;
-use Weissheiten\Neos\InstagramMedia\Exception\MissingConfigurationException;
-
 
 /**
  * @Flow\Scope("singleton")
  */
-class InstagramAPIConnector
+class InstagramClient
 {
     protected $clientId;
 
     protected $clientSecret;
 
-    protected $accessToken = '';
-
-    public function InstagramAPIConnector(){
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
-        $this->accessToken = $accessToken;
-    }
+    protected $accessToken;
 
     /**
      * @return string
@@ -70,18 +62,9 @@ class InstagramAPIConnector
     }
 
     /**
-     * Require an authenticated Instagram service
-     *
-     * @return InstagramAPIConnector The current instance for chaining
-     * @throws \Weissheiten\Neos\InstagramMedia\Exception\AuthenticationRequiredException
+     * @return string
      */
-    public function requireAuthentication(){
-        if((string)$this->accessToken === ''){
-            throw new MissingConfigurationException('No access token',1452784480);
-        }
-        return this;
+    public function isTokenSet(){
+        return ($this->accessToken!==NULL) ? $this->accessToken : 'No access token available';
     }
-
-
-
 }

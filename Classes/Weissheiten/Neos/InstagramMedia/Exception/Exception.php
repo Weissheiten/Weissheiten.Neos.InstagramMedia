@@ -7,11 +7,10 @@ namespace Weissheiten\Neos\InstagramMedia\Exception;
  *                                                                              */
 
 use TYPO3\Flow\Annotations as Flow;
-use Weissheiten\Neos\InstagramMedia\Exception\Exception;
-
+use TYPO3\Neos\Domain\Model\Site;
 /**
-* Authentication for the Instagram API required
-*/
-class AuthenticationRequiredException extends Exception {
+ * Base exception for InstaggramMedia package
+ */
+class Exception extends \TYPO3\Flow\Exception {
 
 }

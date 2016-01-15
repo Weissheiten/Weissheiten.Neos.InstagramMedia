@@ -7,11 +7,11 @@ namespace Weissheiten\Neos\InstagramMedia\Exception;
  *                                                                              */
 
 use TYPO3\Flow\Annotations as Flow;
-use Weissheiten\Neos\InstagramMedia\Exception;
+use Weissheiten\Neos\InstagramMedia\Exception\Exception;
 
 /**
-* Missing configuration for the InstagramMedia package
-*/
+ * Missing configuration for the InstagramMedia package
+ */
 class MissingConfigurationException extends Exception {
 
 }

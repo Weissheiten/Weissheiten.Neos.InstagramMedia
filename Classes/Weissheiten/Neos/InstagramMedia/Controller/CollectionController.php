@@ -14,6 +14,18 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
 	 * @Flow\Inject
+	 * @var \Weissheiten\Neos\InstagramMedia\Service\TokenStorage
+	 */
+	protected $tokenStorage;
+
+	/**
+	 * @Flow\Inject
+	 * @var \Weissheiten\Neos\InstagramMedia\Service\InstagramService
+	 */
+	protected $instagramService;
+
+	/**
+	 * @Flow\Inject
 	 * @var \Weissheiten\Neos\InstagramMedia\Domain\Repository\InstagramCollectionRepository
 	 */
 	protected $instagramCollectionRepository;
@@ -25,6 +37,13 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	public function indexAction() {
 		$instagramCollections = $this->instagramCollectionRepository->findAll();
+
+
+		$this->view->assignMultiple(array(
+			'instagramCollections' => $instagramCollections,
+			'token' => $this->instagramService->getInstagramClient()->isTokenSet()
+		));
+
 		$this->view->assign('instagramCollections',$instagramCollections);
 	}
 
