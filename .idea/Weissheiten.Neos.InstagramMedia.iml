@@ -8,9 +8,11 @@
       <library name="PHP">
         <CLASSES>
           <root url="file://$MODULE_DIR$/../DataDirectories/NeosDev/data/www/typo3-app" />
+          <root url="file://$MODULE_DIR$/../Weissheiten.OAuth2.ClientInstagram" />
         </CLASSES>
         <SOURCES>
           <root url="file://$MODULE_DIR$/../DataDirectories/NeosDev/data/www/typo3-app" />
+          <root url="file://$MODULE_DIR$/../Weissheiten.OAuth2.ClientInstagram" />
         </SOURCES>
       </library>
     </orderEntry>

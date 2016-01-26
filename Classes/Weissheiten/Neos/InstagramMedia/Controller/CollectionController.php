@@ -9,6 +9,7 @@ namespace Weissheiten\Neos\InstagramMedia\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
+use Weissheiten\OAuth2\ClientInstagram\Endpoint;
 
 class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
@@ -29,6 +30,13 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @var \Weissheiten\Neos\InstagramMedia\Domain\Repository\InstagramCollectionRepository
 	 */
 	protected $instagramCollectionRepository;
+
+
+    /**
+     * @Flow\Inject
+     * @var  Endpoint\InstagramTokenEndpoint
+     */
+    protected $instagramTokenEndpoint;
 
 	/**
 	 * Show a list of InstagramCollections and their properties
