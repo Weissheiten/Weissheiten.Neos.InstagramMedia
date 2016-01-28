@@ -1,6 +1,5 @@
 <?php
 namespace Weissheiten\Neos\InstagramMedia\Controller;
-
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "Weissheiten.Neos.InstagramMedia".*
  *                                                                        *
@@ -8,8 +7,10 @@ namespace Weissheiten\Neos\InstagramMedia\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
+use TYPO3\Flow\Mvc\ActionRequest;
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
 use Weissheiten\OAuth2\ClientInstagram\Endpoint;
+use Weissheiten\OAuth2\ClientInstagram\Token;
 
 class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
@@ -38,6 +39,28 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      */
     protected $instagramTokenEndpoint;
 
+
+	/**
+	 * Tries to authenticate the given token. Sets isAuthenticated to TRUE if authentication succeeded.
+     *
+     * @return void
+	 */
+	public function authenticateInstagramAction(){
+        /** @var ActionRequest $actionRequest */
+        $actionRequest = $this->controllerContext->getRequest();
+        $authToken = new \Weissheiten\OAuth2\ClientInstagram\Token\InstagramToken();
+		$authToken->updateCredentials($actionRequest);
+
+        \TYPO3\Flow\var_dump($authToken->getCredentials());
+
+
+
+		//				$this->redirect('index', 'Backend\Backend');
+
+
+
+	}
+
 	/**
 	 * Show a list of InstagramCollections and their properties
 	 *
@@ -50,6 +73,7 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$this->view->assignMultiple(array(
 			'instagramCollections' => $instagramCollections,
 			'token' => $this->instagramService->getInstagramClient()->isTokenSet()
+
 		));
 
 		$this->view->assign('instagramCollections',$instagramCollections);
