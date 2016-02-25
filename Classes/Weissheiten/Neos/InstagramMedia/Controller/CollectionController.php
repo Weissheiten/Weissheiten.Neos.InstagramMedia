@@ -5,26 +5,16 @@ namespace Weissheiten\Neos\InstagramMedia\Controller;
  *                                                                        *
  *                                                                        */
 
+use Flowpack\OAuth2\Client\Exception;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\ActionRequest;
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
 use Weissheiten\OAuth2\ClientInstagram\Endpoint;
 use Weissheiten\OAuth2\ClientInstagram\Token;
+use TYPO3\Party\Domain\Service\PartyService;
 
 class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
-
-	/**
-	 * @Flow\Inject
-	 * @var \Weissheiten\Neos\InstagramMedia\Service\TokenStorage
-	 */
-	protected $tokenStorage;
-
-	/**
-	 * @Flow\Inject
-	 * @var \Weissheiten\Neos\InstagramMedia\Service\InstagramService
-	 */
-	protected $instagramService;
 
 	/**
 	 * @Flow\Inject
@@ -32,34 +22,47 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	protected $instagramCollectionRepository;
 
-
     /**
      * @Flow\Inject
      * @var  Endpoint\InstagramTokenEndpoint
      */
     protected $instagramTokenEndpoint;
 
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\AccountRepository
+	 */
+	protected $accountRepository;
 
 	/**
-	 * Tries to authenticate the given token. Sets isAuthenticated to TRUE if authentication succeeded.
-     *
-     * @return void
+	 * @var \TYPO3\Neos\Domain\Service\UserService
+	 * @Flow\Inject
 	 */
-	public function authenticateInstagramAction(){
-        /** @var ActionRequest $actionRequest */
-        $actionRequest = $this->controllerContext->getRequest();
-        $authToken = new \Weissheiten\OAuth2\ClientInstagram\Token\InstagramToken();
-		$authToken->updateCredentials($actionRequest);
+	protected $userService;
 
-        \TYPO3\Flow\var_dump($authToken->getCredentials());
+	/**
+	 * @Flow\Inject
+	 * @var PartyService
+	 */
+	protected $partyService;
 
+	/**
+	 * @var \TYPO3\Flow\Security\Context
+	 * @Flow\Inject
+	 */
+	protected $securityContext;
 
+	/**
+	 * @var \Weissheiten\OAuth2\ClientInstagram\Flow\InstagramFlow
+	 * @Flow\Inject
+	 */
+	protected $authenticationFlow;
 
-		//				$this->redirect('index', 'Backend\Backend');
-
-
-
-	}
+	/**
+	 * @var \Weissheiten\OAuth2\ClientInstagram\Utility\InstagramApiClient
+	 * @Flow\Inject
+	 */
+	protected $instagramApiClient;
 
 	/**
 	 * Show a list of InstagramCollections and their properties
@@ -67,16 +70,39 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
+
 		$instagramCollections = $this->instagramCollectionRepository->findAll();
 
+		// check if there is an unassigned Authentication Token present
+		//$this->checkForAuthTokenWithoutParty();
+        // \TYPO3\Flow\var_dump("pushdown");
+        // \TYPO3\Flow\var_dump("pushdown");
+		// Check if there is an instagram account attached to this party
+		//\TYPO3\Flow\var_dump($this->userService->getCurrentUser()->getElectronicAddresses());
+
+        $currentUser = $this->userService->getCurrentUser();
+
+        $instagramAccessToken = '';
+
+        /* @var $account \TYPO3\Flow\Security\Account */
+        foreach($currentUser->getAccounts() as $account){
+            if($account->getAuthenticationProviderName()=='InstagramOAuth2Provider'){
+                $instagramAccessToken = $account->getCredentialsSource();
+            }
+        }
+
+        $this->instagramApiClient->setCurrentAccessToken($instagramAccessToken);
+        \TYPO3\Flow\var_dump($this->instagramApiClient->query('/self/me'));
+
+
+
+        //\TYPO3\Flow\var_dump($this->userService->getCurrentUser()->getAccounts());
+		//\TYPO3\Flow\var_dump($this->securityContext->isInitialized());
 
 		$this->view->assignMultiple(array(
-			'instagramCollections' => $instagramCollections,
-			'token' => $this->instagramService->getInstagramClient()->isTokenSet()
-
+			'instagramAccessToken' => $instagramAccessToken,
+			'instagramCollections' => $instagramCollections
 		));
-
-		$this->view->assign('instagramCollections',$instagramCollections);
 	}
 
 	/*
