@@ -72,17 +72,11 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	public function indexAction() {
 
 		$instagramCollections = $this->instagramCollectionRepository->findAll();
-
-		// check if there is an unassigned Authentication Token present
-		//$this->checkForAuthTokenWithoutParty();
-        // \TYPO3\Flow\var_dump("pushdown");
-        // \TYPO3\Flow\var_dump("pushdown");
-		// Check if there is an instagram account attached to this party
-		//\TYPO3\Flow\var_dump($this->userService->getCurrentUser()->getElectronicAddresses());
-
         $currentUser = $this->userService->getCurrentUser();
 
         $instagramAccessToken = '';
+
+//         \TYPO3\Flow\var_dump($this->userService->getCurrentUser()->getAccounts());
 
         /* @var $account \TYPO3\Flow\Security\Account */
         foreach($currentUser->getAccounts() as $account){
@@ -92,15 +86,10 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         }
 
         $this->instagramApiClient->setCurrentAccessToken($instagramAccessToken);
-        \TYPO3\Flow\var_dump($this->instagramApiClient->query('/self/me'));
+        $ownUserData = $this->instagramApiClient->getOwnUserData();
 
-
-
-        //\TYPO3\Flow\var_dump($this->userService->getCurrentUser()->getAccounts());
-		//\TYPO3\Flow\var_dump($this->securityContext->isInitialized());
-
-		$this->view->assignMultiple(array(
-			'instagramAccessToken' => $instagramAccessToken,
+        $this->view->assignMultiple(array(
+			'userData' => $ownUserData,
 			'instagramCollections' => $instagramCollections
 		));
 	}

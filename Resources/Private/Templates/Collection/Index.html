@@ -10,9 +10,9 @@
 <f:section name="Title">Instagram Collections</f:section>
 
 <f:section name="Topbar">
-    <f:if condition="{instagramAccessToken}!=''">
+    <f:if condition="{userData}">
         <f:then>
-            Access Token: {instagramAccessToken}
+            <img src="{userData.profile_picture}" alt="{userData.username}" width="60" />&nbsp;{userData.username}
         </f:then>
         <f:else>
             Please login to instagram: <a href="{oauth:authorization(providerName:'InstagramOAuth2Provider')}">Login</a>
