@@ -1,0 +1,14 @@
+{namespace oauth=Flowpack\OAuth2\Client\ViewHelpers\Uri}
+
+<div class="instagramLoginArea">
+<f:if condition="{userData}">
+    <f:then>
+        <img src="{userData.profile_picture}" alt="{userData.username}" width="60" />&nbsp;{userData.username}
+    </f:then>
+    <f:else>
+        <f:form actionUri="{oauth:authorization(providerName:'InstagramOAuth2Provider')}">
+            <f:form.submit value="Login to Instagram" title="Login to Instagram" />
+        </f:form>
+    </f:else>
+</f:if>
+</div>

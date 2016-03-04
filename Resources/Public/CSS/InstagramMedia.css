@@ -1,0 +1,20 @@
+.neos div.instagramLoginArea{
+    margin-bottom: 10pt;
+}
+
+.neos aside.instagramCollectionList{
+    float:left;
+    width: 275px;
+}
+
+.neos div.instagramAssets{
+    margin-left: 300px;
+}
+
+table.instagram-table td button{
+    float: right;
+}
+
+i.icon-pullRight{
+    display: inline;
+}

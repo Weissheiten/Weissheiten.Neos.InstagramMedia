@@ -14,7 +14,7 @@ use Weissheiten\OAuth2\ClientInstagram\Endpoint;
 use Weissheiten\OAuth2\ClientInstagram\Token;
 use TYPO3\Party\Domain\Service\PartyService;
 
-class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
+class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleController {
 
 	/**
 	 * @Flow\Inject
@@ -66,41 +66,35 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
 	 * Show a list of InstagramCollections and their properties
-	 *
+     *
+     * @param string $searchTerm
 	 * @return void
 	 */
-	public function indexAction() {
+	public function indexAction($searchTerm = null) {
 
-		$instagramCollections = $this->instagramCollectionRepository->findAll();
-        $currentUser = $this->userService->getCurrentUser();
+        $instagramCollections = $this->instagramCollectionRepository->findAll();
 
-        $instagramAccessToken = '';
+        $userData = $this->authenticationFlow->getUserData();
 
-//         \TYPO3\Flow\var_dump($this->userService->getCurrentUser()->getAccounts());
-
-        /* @var $account \TYPO3\Flow\Security\Account */
-        foreach($currentUser->getAccounts() as $account){
-            if($account->getAuthenticationProviderName()=='InstagramOAuth2Provider'){
-                $instagramAccessToken = $account->getCredentialsSource();
-            }
-        }
-
-        $this->instagramApiClient->setCurrentAccessToken($instagramAccessToken);
-        $ownUserData = $this->instagramApiClient->getOwnUserData();
+        $instagramSearchResult = ($searchTerm!==null) ? $this->instagramApiClient->searchByTag($searchTerm,20) : null;
 
         $this->view->assignMultiple(array(
-			'userData' => $ownUserData,
-			'instagramCollections' => $instagramCollections
+            'argumentNamespace' => $this->request->getArgumentNamespace(),
+            'userData' => $userData,
+			'instagramCollections' => $instagramCollections,
+            'instagramSearchResult' => $instagramSearchResult,
+            'settings' => $this->settings
 		));
+
 	}
 
-	/*
+	/**
 	 * Create a new InstagramCollection
 	 *
 	 * @param InstagramCollection $instagramCollection
 	 * @return void
 	 */
-	public function createAction(InstagramCollection $instagramCollection){
+	public function createInstagramCollectionAction(InstagramCollection $instagramCollection){
         if($this->persistenceManager->isNewObject($instagramCollection)){
 			$this->instagramCollectionRepository->add($instagramCollection);
 		}
@@ -108,37 +102,46 @@ class CollectionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$this->redirect('index', null, null, array(), 0, 201);
 	}
 
-    /*
+    /**
      * Edit the given Instagram Collection
      *
      * @param InstagramCollection $instagramCollection
      * @return void
      *
      */
-    public function editCollectionAction(InstagramCollection $instagramCollection){
-        $this->view->assign('instagramCollection',$instagramCollection);
+    public function editInstagramCollectionAction(InstagramCollection $instagramCollection){
+		$userData = $this->authenticationFlow->getUserData();
+		$this->view->assignMultiple(array(
+			'userData' => $userData,
+			'instagramCollection' => $instagramCollection
+		));
     }
 
-    public function updateAction(InstagramCollection $instagramCollection){
+    /**
+     * Update the given Instagram Collection
+     *
+     * @param InstagramCollection $instagramCollection
+     * @return void
+     */
+    public function updateInstagramCollectionAction(InstagramCollection $instagramCollection){
         $this->instagramCollectionRepository->update($instagramCollection);
         $this->addFlashMessage('The Instagram Collection "%s" has been updated.', 'User updated', Message::SEVERITY_OK, array($instagramCollection->getTitle()), 1412374498);
         $this->redirect('index');
     }
 
-    /*
+    /**
      * Delete an InstagramCollection
      *
      * @param InstagramCollection $instagramCollection
      * @return void
+     *
      */
-    public function deleteAction(InstagramCollection $instagramCollection){
-        \TYPO3\FLOW\var_dump($instagramCollection);
-        /*
+    public function deleteInstagramCollectionAction(InstagramCollection $instagramCollection){
         $this->instagramCollectionRepository->remove($instagramCollection);
+        /*
         $this->addFlashMessage(sprintf('Collection "%s" has been deleted.', htmlspecialchars($instagramCollection->getTitle())));
-         */
+        */
         $this->redirect('index');
-
     }
 
 }

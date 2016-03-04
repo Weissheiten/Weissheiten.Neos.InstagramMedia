@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title><f:render section="Title" /></title>
+<f:render partial="LoginStatus" arguments="{userData: userData}" />
 
-		<f:for each="{settings.styles}" as="style">
-			<f:debug>{style}</f:debug>
-			<link rel="stylesheet" href="{f:uri.resource(path: style)}" />
-		</f:for>
-	</head>
-	<body>
-		<div>
-				<f:render section="Topbar" />
-				<f:render section="Content"/>
-                <f:render section="ImageSearch"/>
-		</div>
-        <f:for each="{settings.scripts}" as="script">
-            <script src="{f:uri.resource(path: script)}"></script>
-        </f:for>
-        <f:render section="Scripts" optional="TRUE" />
-	</body>
-</html>
+<div class="neos-media-assets">
+    <div class="neos-notification-container">
+        <f:render partial="FlashMessages"/>
+    </div>
+    <f:render section="Content"/>
+    <f:render section="Scripts" optional="TRUE" />
+</div>
+
+

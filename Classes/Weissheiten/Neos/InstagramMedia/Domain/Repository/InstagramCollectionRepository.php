@@ -7,27 +7,22 @@ namespace Weissheiten\Neos\InstagramMedia\Domain\Repository;
  *                                                                              */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Persistence\Repository;
 
 /**
  * The InstagramCollection Repository
  *
  * @Flow\Scope("singleton")
- * @api
  */
-class InstagramCollectionRepository extends \TYPO3\Flow\Persistence\Repository
+class InstagramCollectionRepository extends Repository
 {
     /**
      * Finds the first collection
      *
      * @return \Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection The first collection or NULL if none exists
-     * @api
      */
     public function findFirst()
     {
         return $this->createQuery()->execute()->getFirst();
     }
-
-    /**
-     *
-     */
 }

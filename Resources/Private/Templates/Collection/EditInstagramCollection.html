@@ -8,7 +8,7 @@
 <f:section name="Title">Edit Instagram Collection "{instagramCollection.title}"</f:section>
 
 <f:section name="Content">
-    <f:form action="update" object="{instagramCollection}" objectName="instagramCollection">
+    <f:form action="updateInstagramCollection" object="{instagramCollection}" objectName="instagramCollection">
         <div class="form-group">
             <label for="collectionDescriptionID">Collection Description</label>
             <f:form.textarea property="description" rows="4" class="form-control" value="{instagramCollection.description}" placeholder="Collection description" id="collectionDescriptionID" />
