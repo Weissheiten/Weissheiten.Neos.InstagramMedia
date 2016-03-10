@@ -35,17 +35,17 @@ class InstagramCollection {
     /**
      * The InstagramImages contained in this blog
      *
-     * @ORM\OneToMany(mappedBy="InstagramCollection")
+     * @ORM\OneToMany(mappedBy="instagramcollection")
      * @ORM\OrderBy({"date" = "DESC"})
      * @var Collection<InstagramImage>
      */
-    protected $instagramImages;
+    protected $instagramimages;
 
     /**
      * @param string $title
      */
     public function __construct($title, $description = "") {
-        $this->instagramImages = new ArrayCollection();
+        $this->instagramimages = new ArrayCollection();
         $this->title = $title;
         $this->description = $description;
     }
@@ -84,7 +84,7 @@ class InstagramCollection {
      * @return Collection
      */
     public function getInstagramImages() {
-        return $this->instagramImages;
+        return $this->instagramimages;
     }
 
     /**
@@ -93,8 +93,12 @@ class InstagramCollection {
      * @param InstagramImage $instagramImage
      * @return void
      */
-    public function addInstagramImage(InstagramImage $instagramImage) {
-        $this->instagramImages->add($instagramImage);
+    public function addInstagramImage(InstagramImage $instagramimage) {
+        if($this->instagramimages->contains($instagramimage) === false){
+            $this->instagramimages->add($instagramimage);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -103,7 +107,7 @@ class InstagramCollection {
      * @param InstagramImage $instagramImage
      * @return void
      */
-    public function removeInstagramImage(InstagramImage $instagramImage) {
-        $this->instagramImages->removeElement($instagramImage);
+    public function removeInstagramImage(InstagramImage $instagramimage) {
+        $this->instagramimages->removeElement($instagramimage);
     }
 }

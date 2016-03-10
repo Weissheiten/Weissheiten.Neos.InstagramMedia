@@ -1,0 +1,53 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+
+<h2>
+    InstagramCollections
+    <span class="InstagramCollections-edit-toggle neos-button" title="" data-neos-toggle="tooltip" data-original-title="Edit InstagramCollections"><i class="icon-pencil"></i></span>
+</h2>
+<table class="neos-table instagram-table">
+    <tbody>
+    <f:for each="{instagramCollections}" as="instagramCollection">
+        <tr class="droppable-instagramCollection">
+            <td class="collectionTitle">
+                <a data-instagramcollection-identifier="{instagramCollection -> f:format.identifier()}" title="{instagramCollection.title}" href="http://dev.neos/neos/management/media/?moduleArguments%5Bview%5D=Thumbnail&amp;moduleArguments%5BassetCollection%5D%5B__identity%5D=c77ca724-9087-4b13-8829-0fe91774bede">
+                {instagramCollection.title}
+                </a>
+            </td>
+            <td class="collectionActions">
+                <div class="collectionCountPanel">
+                    <span class="count"><f:if condition="{instagramimages.count}"><f:then>{instagramimages.count}</f:then><f:else>0</f:else></f:if></span>
+                </div>
+                <div class="collectionEditingPanel">
+                    <button class="neos-button" title="{neos:backend.translate(id: 'clickToDelete', value: 'Click to delete')}" data-neos-toggle="tooltip" data-modal="collection-{instagramCollection -> f:format.identifier()}" data-object-identifier="{instagramCollection -> f:format.identifier()}">
+                        <i class="icon-trash icon-white icon-pullRight"></i>
+                    </button>
+                    <f:link.action action="editInstagramCollection" arguments="{instagramCollection: instagramCollection}" class="neos-button" title="{neos:backend.translate(id: 'clickToEdit', value: 'Click to edit')}">
+                        <i class="icon-pencil icon-white icon-pullRight"></i>
+                    </f:link.action>
+                </div>
+            </td>
+            <div class="neos-hide" id="collection-{instagramCollection -> f:format.identifier()}">
+                <div class="neos-modal">
+                    <div class="neos-modal-header">
+                        <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+                        <div class="neos-header">Do you really want to delete collection "{instagramCollection.title}"?</div>
+                        <div>
+                            <div class="neos-subheader">
+                                <p>This will delete the collection, and all references to Instagram media that it contains.<br />This operation cannot be undone.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="neos-modal-footer">
+                        <a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+                        <f:form action="deleteInstagramCollection" arguments="{instagramCollection: instagramCollection}" class="neos-inline">
+                            <button type="submit" class="neos-button neos-button-danger" title="Delete the collection">
+                                Yes, delete the collection
+                            </button>
+                        </f:form>
+                    </div>
+                </div>
+            </div>
+        </tr>
+    </f:for>
+    </tbody>
+</table>

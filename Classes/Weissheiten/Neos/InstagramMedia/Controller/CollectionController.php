@@ -10,6 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\ActionRequest;
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
+use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramImage;
 use Weissheiten\OAuth2\ClientInstagram\Endpoint;
 use Weissheiten\OAuth2\ClientInstagram\Token;
 use TYPO3\Party\Domain\Service\PartyService;
@@ -86,6 +87,25 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
             'settings' => $this->settings
 		));
 
+	}
+
+
+	/**
+	 * Adds an InstagramImage to a Collection
+	 *
+	 * @param InstagramImage $instagramimage
+	 * @param InstagramCollection $instagramcollection
+     * @return boolean
+     *
+	 */
+	public function addInstagramImageToCollectionAction(InstagramImage $instagramimage, InstagramCollection $instagramcollection){
+		$success = false;
+        if($instagramcollection->addInstagramImage($instagramimage)){
+            $this->persistenceManager->update($instagramcollection);
+            $success = true;
+        }
+
+		$this->view->assign('value', $success);
 	}
 
 	/**

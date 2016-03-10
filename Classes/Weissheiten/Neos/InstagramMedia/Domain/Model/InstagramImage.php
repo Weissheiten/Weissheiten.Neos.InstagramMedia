@@ -16,10 +16,10 @@ class InstagramImage {
 
     /**
      * @Flow\Validate(type="NotEmpty")
-     * @ORM\ManyToOne(inversedBy="instagramImages")
+     * @ORM\ManyToOne(inversedBy="instagramimages")
      * @var InstagramCollection
      */
-    protected $instagramCollection;
+    protected $instagramcollection;
 
     /**
      * The creation date of this post (set in the constructor)
@@ -45,16 +45,16 @@ class InstagramImage {
      * @return InstagramCollection
      */
     public function getInstagramCollection() {
-        return $this->instagramCollection;
+        return $this->instagramcollection;
     }
 
     /**
      * @param InstagramCollection $instagramCollection
      * @return void
      */
-    public function setInstagramCollection(InstagramCollection $instagramCollection) {
-        $this->instagramCollection = $instagramCollection;
-        $this->instagramCollection->addInstagramImage($this);
+    public function setInstagramCollection(InstagramCollection $instagramcollection) {
+        $this->instagramcollection = $instagramcollection;
+        $this->instagramcollection->addInstagramImage($this);
     }
 
     /**
@@ -80,10 +80,10 @@ class InstagramImage {
     }
 
     /**
-     * @param string
+     * @param string $uri
      * @return void
      */
-    public function setUri(string $uri) {
+    public function setUri($uri) {
         $this->uri = $uri;
     }
 

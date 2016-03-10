@@ -8,117 +8,53 @@
 <f:section name="Content">
     <div class="instagramMedia">
         <aside class="instagramCollectionList">
-            <div class="form-group">
-                <form action="{f:uri.action(action: 'index')}" method="get" class="neos-search">
-                    <input type="search" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[searchTerm]', else: 'searchTerm')}" placeholder="Search" value="{searchTerm}" autofocus="autofocus" />
-                    <button type="submit" title="Search in instagram" data-neos-toggle="tooltip"><i class="icon-search"></i></button>
-                </form>
+            <div class="instagramSearch">
+                <div class="form-group">
+                    <form action="{f:uri.action(action: 'index')}" method="get" class="neos-search">
+                        <input type="search" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[searchTerm]', else: 'searchTerm')}" placeholder="Search" value="{searchTerm}" autofocus="autofocus" />
+                        <button type="submit" title="Search in instagram" data-neos-toggle="tooltip"><i class="icon-search"></i></button>
+                    </form>
+                </div>
             </div>
 
-            <table class="neos-table instagram-table">
-                <thead>
-                <tr>
-                    <th>Collection Name</th>
-                    <!--<th>Collection Description</th>-->
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <f:for each="{instagramCollections}" as="instagramCollection">
-                    <tr>
-                        <td>{instagramCollection.title}</td>
-                        <!--<td>{instagramCollection.description}</td>-->
-                        <td>
-                            <button class="neos-button neos-button-danger" title="{neos:backend.translate(id: 'clickToDelete', value: 'Click to delete')}" data-neos-toggle="tooltip" data-modal="collection-{instagramCollection -> f:format.identifier()}" data-object-identifier="{instagramCollection -> f:format.identifier()}">
-                                <i class="icon-trash icon-white icon-pullRight"></i>
-                            </button>
-                            <f:link.action action="editInstagramCollection" arguments="{instagramCollection: instagramCollection}" class="neos-button neos-button-primary" title="{neos:backend.translate(id: 'clickToEdit', value: 'Click to edit')}">
-                                <i class="icon-pencil icon-white icon-pullRight"></i>
-                            </f:link.action>
-                        </td>
-                        <div class="neos-hide" id="collection-{instagramCollection -> f:format.identifier()}">
-                            <div class="neos-modal">
-                                <div class="neos-modal-header">
-                                    <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
-                                    <div class="neos-header">Do you really want to delete collection "{instagramCollection.title}"?</div>
-                                    <div>
-                                        <div class="neos-subheader">
-                                            <p>This will delete the collection, and all references to Instagram media that it contains.<br />This operation cannot be undone.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="neos-modal-footer">
-                                    <a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
-                                    <f:form action="deleteInstagramCollection" arguments="{instagramCollection: instagramCollection}" class="neos-inline">
-                                        <button type="submit" class="neos-button neos-button-danger" title="Delete the collection">
-                                            Yes, delete the collection
-                                        </button>
-                                    </f:form>
-                                </div>
-                            </div>
-                        </div>
-                    </tr>
-                </f:for>
-                </tbody>
-            </table>
+            <f:render partial="InstagramCollectionList" arguments="{'instagramCollections':instagramCollections}"></f:render>
 
-            <table class="neos-table">
-                <!--
-                <thead>
-                <tr>
-                    <th>Collection Name</th>
-                    <th>Collection Description</th>
-                    <th></th>
-                </tr>
-                </thead>
-                -->
-                <tbody>
-                <f:form method="post" action="createInstagramCollection" object="{instagramCollection}" objectName="instagramCollection">
-                    <tr>
-                        <td>
-                            <f:form.textfield property="title" class="form-control droppable-assetcollection" placeholder="Collection title" id="collectionNameID" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <f:form.textfield property="description" class="form-control" placeholder="Collection description" id="collectionDescriptionID" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="neos-pull-right">
-                                <f:form.submit value="{neos:backend.translate(id: 'add', value: 'Add')}" class="neos-button neos-button-primary" />
-                            </div>
-                        </td>
-                    </tr>
+            <div class="collectionAddPanel">
+                <f:form method="post" class="createInstagramCollection" action="createInstagramCollection" object="{instagramCollection}" objectName="instagramCollection">
+                   <f:form.textfield property="title" class="form-control" placeholder="Enter InstagramCollection title" id="collectionNameID" /><br/>
+                   <f:form.submit value="{neos:backend.translate(id: 'add', value: 'Add')}" class="neos-button neos-button-primary" />
                 </f:form>
-                </tbody>
-            </table>
+            </div>
+
 
         </aside>
 
-
         <div class="instagramAssets">
-
-        <f:if condition="{instagramSearchResult}">
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="neos-thumbnails asset-list">
-                        <f:for each="{instagramSearchResult}" as="searchResult">
-                            <li class="asset">
-                                <f:render partial="instagramImage" arguments="{'instagramImage':searchResult}"></f:render>
-                            </li>
-                        </f:for>
-                    </ul>
+            <f:if condition="{instagramSearchResult}">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="neos-thumbnails asset-list">
+                            <f:for each="{instagramSearchResult}" as="searchResult">
+                                <li>
+                                    <f:render partial="instagramImage" arguments="{'instagramImage':searchResult}"></f:render>
+                                </li>
+                            </f:for>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </f:if>
+            </f:if>
         </div>
     </div>
-
+<div style="clear:both;"></div>
 </f:section>
 
 <f:section name="Scripts">
+    <f:form action="addInstagramImageToCollection" id="link-image-to-instagramcollection-form" format="json">
+        <f:form.hidden name="image[__identity]" id="link-image-to-instagramcollection-form-image" />
+        <f:form.hidden name="imageCollection[__identity]" id="link-image-to-instagramcollection-form-imagecollection" />
+    </f:form>
+
+
     <script type="text/javascript" src="{f:uri.resource(package: 'TYPO3.Media', path: 'Libraries/jquery-ui/js/jquery-ui-1.10.3.custom.js')}"></script>
-    <script type="text/javascript" src="{f:uri.resource(package: 'TYPO3.Media', path: 'Scripts/collections-and-tagging.js')}"></script>
+    <script type="text/javascript" src="{f:uri.resource(package: 'Weissheiten.Neos.InstagramMedia', path: 'Scripts/instagramCollections.js')}"></script>
 </f:section>
