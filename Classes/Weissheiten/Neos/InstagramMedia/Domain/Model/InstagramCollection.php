@@ -91,7 +91,7 @@ class InstagramCollection {
      * Adds a Instagram Image to this collection
      *
      * @param InstagramImage $instagramImage
-     * @return void
+     * @return bool
      */
     public function addInstagramImage(InstagramImage $instagramimage) {
         if($this->instagramimages->contains($instagramimage) === false){

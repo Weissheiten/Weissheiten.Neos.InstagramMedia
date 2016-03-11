@@ -108,6 +108,26 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 		$this->view->assign('value', $success);
 	}
 
+    /**
+     *
+     * @param InstagramImage $instagramImage
+     * @param InstagramCollection $instagramCollection
+	 *
+     */
+    public function createInstagramImageAndAddToCollectionAction(InstagramImage $instagramImage, InstagramCollection $instagramCollection){
+        dasfsfasfd
+        \TYPO3\Flow\var_dump($instagramCollection);
+        \TYPO3\Flow\var_dump($instagramImage);
+        /*
+        if(!$instagramCollection->getInstagramImages()->contains($instagramImage)){
+            $instagramCollection->addInstagramImage($instagramImage);
+            $this->instagramCollectionRepository->update($instagramCollection);
+            $success = true;
+        }
+        $this->view-assign('value', $success);
+        */
+    }
+
 	/**
 	 * Create a new InstagramCollection
 	 *

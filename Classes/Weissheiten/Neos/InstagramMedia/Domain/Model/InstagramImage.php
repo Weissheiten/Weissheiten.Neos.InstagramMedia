@@ -35,6 +35,12 @@ class InstagramImage {
     protected $uri;
 
     /**
+     * @Flow\Validate(type="NotEmpty")
+     * @var string
+     */
+    protected $username;
+
+    /**
      * Constructs this InstagramImage
      */
     public function __construct() {
@@ -55,6 +61,22 @@ class InstagramImage {
     public function setInstagramCollection(InstagramCollection $instagramcollection) {
         $this->instagramcollection = $instagramcollection;
         $this->instagramcollection->addInstagramImage($this);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
 
     /**

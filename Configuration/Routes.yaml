@@ -1,0 +1,8 @@
+-
+  name: 'Instagram Media - adding images to collections'
+  uriPattern: 'neos/management/InstagramMedia/createinstagramimageandaddtocollection'
+  defaults:
+    '@package': 'Weissheiten.Neos.InstagramMedia'
+    '@controller': 'CollectionController'
+    '@action':     'createInstagramImageAndAddToCollectionAction'
+  appendExceedingArguments: TRUE

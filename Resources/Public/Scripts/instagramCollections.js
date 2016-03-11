@@ -19,8 +19,10 @@
     });
 
     var linkImageToInstagramCollectionForm = $('#link-image-to-instagramcollection-form'),
-        linkImageToCollectionImageField = $('#link-image-to-instagramcollection-form-image', linkImageToInstagramCollectionForm),
-        linkImageToCollectionField = $('#link-image-to-instagramcollection-form-imagecollection', linkImageToInstagramCollectionForm);
+        linkImageToInstagramCollectionFormCollection = $('#link-image-to-instagramcollection-form-imagecollection', linkImageToInstagramCollectionForm),
+        linkImageToInstagramCollectionFormImageUsername = $('#link-image-to-instagramcollection-form-imageUsername', linkImageToInstagramCollectionForm),
+        linkImageToInstagramCollectionFormImageShortLink = $('#link-image-to-instagramcollection-form-imageShortlink', linkImageToInstagramCollectionForm);
+
     $('.droppable-instagramCollection').each(function () {
         $(this).droppable({
             addClasses: false,
@@ -30,12 +32,17 @@
             drop: function (event, ui) {
                 var instagramCollection = $(this),
                     asset = $(ui.draggable[0]),
-                    assetIdentifier = asset.data('image-identifier'),
-                    countElement = instagramCollection.children('span'),
+                    assetLink = asset.data('image-shortlink'),
+                    assetUser = asset.data('image-username'),
+                    countElement = instagramCollection.children('td.collectionActions').children('div.collectionCountPanel').children('span'),
                     count = parseInt(countElement.text());
-                linkImageToCollectionImageField.val(assetIdentifier);
-                linkImageToCollectionField.val(instagramCollection.data('instagramCollection-identifier'));
-                countElement.html('<span class="neos-ellipsis" />');
+
+                linkImageToInstagramCollectionFormCollection.val(instagramCollection.find('a').data('instagramcollectionIdentifier'));
+                linkImageToInstagramCollectionFormImageUsername.val(assetUser);
+                linkImageToInstagramCollectionFormImageShortLink.val(assetLink);
+                countElement.html('<span class="count" />');
+               // linkImageToInstagramCollectionForm.submit();
+                /*
                 $.post(
                     linkImageToInstagramCollectionForm.attr('action'),
                     $('#link-image-to-instagramcollection-form').serialize(),
@@ -57,6 +64,7 @@
                         alert(message);
                     }
                 });
+                */
             }
         });
     });
