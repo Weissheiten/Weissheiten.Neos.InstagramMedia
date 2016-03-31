@@ -49,9 +49,9 @@
 </f:section>
 
 <f:section name="Scripts">
-    <f:form method="post" id="link-image-to-instagramcollection-form" class="createInstagramCollection" action="createInstagramImageAndAddToCollection" object="{instagramImage}" objectName="instagramImage">
-        <f:form.hidden property="uri" class="form-control" id="link-image-to-instagramcollection-form-imageShortlink" /><br/>
-        <f:form.hidden property="username" class="form-control" id="link-image-to-instagramcollection-form-imageUsername" /><br/>
+    <f:form method="post" id="link-image-to-instagramcollection-form" class="createInstagramCollection" action="createInstagramImageAndAddToCollection">
+        <f:form.hidden name="shortLink" class="form-control" id="link-image-to-instagramcollection-form-imageShortlink" /><br/>
+        <f:form.hidden name="username" class="form-control" id="link-image-to-instagramcollection-form-imageUsername" /><br/>
         <f:form.hidden name="instagramCollection[__identity]" id="link-image-to-instagramcollection-form-imagecollection" />
         <f:form.submit></f:form.submit>
     </f:form>

@@ -9,10 +9,13 @@ use Flowpack\OAuth2\Client\Exception;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\ActionRequest;
+use TYPO3\Flow\Http\Uri;
+
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramImage;
 use Weissheiten\OAuth2\ClientInstagram\Endpoint;
 use Weissheiten\OAuth2\ClientInstagram\Token;
+
 use TYPO3\Party\Domain\Service\PartyService;
 
 class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleController {
@@ -22,6 +25,12 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 	 * @var \Weissheiten\Neos\InstagramMedia\Domain\Repository\InstagramCollectionRepository
 	 */
 	protected $instagramCollectionRepository;
+
+    /**
+     * @Flow\Inject
+     * @var \Weissheiten\Neos\InstagramMedia\Domain\Repository\InstagramImageRepository
+     */
+    protected $instagramImageRepository;
 
     /**
      * @Flow\Inject
@@ -109,23 +118,20 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 	}
 
     /**
-     *
-     * @param InstagramImage $instagramImage
      * @param InstagramCollection $instagramCollection
-	 *
+     * @param Uri $shortLink
+     * @param string $username
+	 * @return void
      */
-    public function createInstagramImageAndAddToCollectionAction(InstagramImage $instagramImage, InstagramCollection $instagramCollection){
-        dasfsfasfd
-        \TYPO3\Flow\var_dump($instagramCollection);
-        \TYPO3\Flow\var_dump($instagramImage);
-        /*
-        if(!$instagramCollection->getInstagramImages()->contains($instagramImage)){
-            $instagramCollection->addInstagramImage($instagramImage);
-            $this->instagramCollectionRepository->update($instagramCollection);
-            $success = true;
-        }
-        $this->view-assign('value', $success);
-        */
+    public function createInstagramImageAndAddToCollectionAction(InstagramCollection $instagramCollection, Uri $shortLink, $username){
+        $instagramImage = new InstagramImage();
+        $instagramImage->setUri($shortLink);
+        $instagramImage->setUsername($username);
+        $instagramImage->setInstagramCollection($instagramCollection);
+
+        $this->instagramImageRepository->add($instagramImage);
+        $this->addFlashMessage(sprintf('InstagramImage "%s" has been added.', htmlspecialchars($instagramImage->getUri())));
+        $this->redirect('index', null, null, array(), 0, 201);
     }
 
 	/**

@@ -42,7 +42,7 @@
                 linkImageToInstagramCollectionFormImageShortLink.val(assetLink);
                 countElement.html('<span class="count" />');
                // linkImageToInstagramCollectionForm.submit();
-                /*
+/*
                 $.post(
                     linkImageToInstagramCollectionForm.attr('action'),
                     $('#link-image-to-instagramcollection-form').serialize(),
