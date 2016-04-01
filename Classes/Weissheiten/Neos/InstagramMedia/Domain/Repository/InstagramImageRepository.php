@@ -8,6 +8,9 @@ namespace Weissheiten\Neos\InstagramMedia\Domain\Repository;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
+use TYPO3\Flow\Http\Uri;
+
+use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
 
 /**
  * The InstagramImage Repository
@@ -24,5 +27,19 @@ class InstagramImageRepository extends Repository
     public function findFirst()
     {
         return $this->createQuery()->execute()->getFirst();
+    }
+
+    /**
+     * checks if the Repository contains an image with the given Uri
+     *
+     * @param Uri $uri uri to search for
+     * @return Object
+     */
+    public function findFirstByShortLinkAndCollection(Uri $uri, InstagramCollection $instagramCollection){
+        $query = $this->createQuery();
+        $constraints[] = $query->equals('uri', $uri);
+        $constraints[] = $query->equals('instagramcollection', $instagramCollection);
+        $query->matching($query->logicalAnd($constraints));
+        return $query->setLimit(1)->execute()->getFirst();
     }
 }

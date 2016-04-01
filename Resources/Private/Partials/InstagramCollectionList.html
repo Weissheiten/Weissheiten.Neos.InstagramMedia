@@ -9,18 +9,19 @@
     <f:for each="{instagramCollections}" as="instagramCollection">
         <tr class="droppable-instagramCollection">
             <td class="collectionTitle">
-                <a data-instagramcollection-identifier="{instagramCollection -> f:format.identifier()}" title="{instagramCollection.title}" href="http://dev.neos/neos/management/media/?moduleArguments%5Bview%5D=Thumbnail&amp;moduleArguments%5BassetCollection%5D%5B__identity%5D=c77ca724-9087-4b13-8829-0fe91774bede">
-                {instagramCollection.title}
-                </a>
+                <f:link.action additionalAttributes="{data-instagramcollection-identifier: '{instagramCollection -> f:format.identifier()}'}" action="index" title="List Instagram Images of this collection" arguments="{listInstagramCollectionImages: instagramCollection}">
+                    {instagramCollection.title}
+                </f:link.action>
             </td>
             <td class="collectionActions">
                 <div class="collectionCountPanel">
-                    <span class="count"><f:if condition="{instagramimages.count}"><f:then>{instagramimages.count}</f:then><f:else>0</f:else></f:if></span>
+                    <span class="count"><f:if condition="{instagramCollection.instagramimages}"><f:then>{f:count(subject:instagramCollection.instagramimages)}</f:then><f:else>0</f:else></f:if></span>
                 </div>
                 <div class="collectionEditingPanel">
-                    <button class="neos-button" title="{neos:backend.translate(id: 'clickToDelete', value: 'Click to delete')}" data-neos-toggle="tooltip" data-modal="collection-{instagramCollection -> f:format.identifier()}" data-object-identifier="{instagramCollection -> f:format.identifier()}">
+                    <button class="neos-button" title="{neos:backend.translate(id: 'clickToDelete', value: 'Click to delete')}" data-modal="collection-{instagramCollection -> f:format.identifier()}">
                         <i class="icon-trash icon-white icon-pullRight"></i>
                     </button>
+
                     <f:link.action action="editInstagramCollection" arguments="{instagramCollection: instagramCollection}" class="neos-button" title="{neos:backend.translate(id: 'clickToEdit', value: 'Click to edit')}">
                         <i class="icon-pencil icon-white icon-pullRight"></i>
                     </f:link.action>

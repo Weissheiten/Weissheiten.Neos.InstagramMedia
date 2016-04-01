@@ -42,7 +42,6 @@
                 linkImageToInstagramCollectionFormImageShortLink.val(assetLink);
                 countElement.html('<span class="count" />');
                // linkImageToInstagramCollectionForm.submit();
-/*
                 $.post(
                     linkImageToInstagramCollectionForm.attr('action'),
                     $('#link-image-to-instagramcollection-form').serialize(),
@@ -54,17 +53,19 @@
                         text.children().remove();
                     } else {
                         countElement.html(count);
+                        var message = 'This instagram image is already part of the collection.';
+                        message = window.Typo3Neos.I18n.translate('This instagram image is already part of the collection', message, 'TYPO3.Neos', 'Modules');
+                        window.Typo3Neos.Notification.warning(message);
                     }
                 }).fail(function () {
-                    var message = 'Adding the image to the collection failed.';
+                    var message = 'Adding the instagram image to the collection failed.';
                     if (window.Typo3Neos) {
-                        message = window.Typo3Neos.I18n.translate('media.addingAssetsToCollectionFailed', message, 'TYPO3.Neos', 'Modules');
+                        message = window.Typo3Neos.I18n.translate('Adding the instagram image to the collection failed', message, 'TYPO3.Neos', 'Modules');
                         window.Typo3Neos.Notification.error(message);
                     } else {
                         alert(message);
                     }
                 });
-                */
             }
         });
     });
@@ -74,5 +75,26 @@
         $('.collectionCountPanel').toggle();
         $('.collectionAddPanel').toggle();
     })
+
+    $('[data-modal]').click(function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            $modal = $('#' + $this.data('modal')),
+            $header = $('.neos-header', $modal),
+            headerText = $header.text();
+        $header.text(headerText.replace('{0}', $this.data('label')));
+        $('#modal-form-object', $modal).val($this.data('object-identifier'));
+        $(document).on('keyup.modal', function(e) {
+            if (e.keyCode == 27) {
+                $modal.modal('hide');
+            }
+        });
+        $modal.modal().one('hide', function() {
+            $this.focus();
+            $header.text(headerText);
+            $(document).off('keyup.modal');
+        });
+        $('[type="submit"]', $modal).focus();
+    });
 
 })(jQuery);

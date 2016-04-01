@@ -74,25 +74,36 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 	 */
 	protected $instagramApiClient;
 
-	/**
+    /**
+     * @var array
+     */
+    protected $viewFormatToObjectNameMap = array(
+        'html' => 'TYPO3\Fluid\View\TemplateView',
+        'json' => 'TYPO3\Flow\Mvc\View\JsonView'
+    );
+
+    /**
 	 * Show a list of InstagramCollections and their properties
      *
      * @param string $searchTerm
+     * @param InstagramCollection $listInstagramCollectionImages
 	 * @return void
 	 */
-	public function indexAction($searchTerm = null) {
-
+	public function indexAction($searchTerm = null, InstagramCollection $listInstagramCollectionImages = null) {
         $instagramCollections = $this->instagramCollectionRepository->findAll();
 
         $userData = $this->authenticationFlow->getUserData();
 
         $instagramSearchResult = ($searchTerm!==null) ? $this->instagramApiClient->searchByTag($searchTerm,20) : null;
 
+        $instagramCollectionImageList = ($listInstagramCollectionImages!==null) ? $listInstagramCollectionImages->getInstagramImages() : null;
+
         $this->view->assignMultiple(array(
             'argumentNamespace' => $this->request->getArgumentNamespace(),
             'userData' => $userData,
 			'instagramCollections' => $instagramCollections,
             'instagramSearchResult' => $instagramSearchResult,
+            'instagramCollectionImageList' => $instagramCollectionImageList,
             'settings' => $this->settings
 		));
 
@@ -121,17 +132,32 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
      * @param InstagramCollection $instagramCollection
      * @param Uri $shortLink
      * @param string $username
-	 * @return void
+	 * @return boolean
      */
     public function createInstagramImageAndAddToCollectionAction(InstagramCollection $instagramCollection, Uri $shortLink, $username){
-        $instagramImage = new InstagramImage();
-        $instagramImage->setUri($shortLink);
-        $instagramImage->setUsername($username);
-        $instagramImage->setInstagramCollection($instagramCollection);
+        $success = false;
+        /* @var InstagramImage $existingImage */
+        $existingImage = $this->instagramImageRepository->findFirstByShortLinkAndCollection($shortLink, $instagramCollection);
 
-        $this->instagramImageRepository->add($instagramImage);
-        $this->addFlashMessage(sprintf('InstagramImage "%s" has been added.', htmlspecialchars($instagramImage->getUri())));
-        $this->redirect('index', null, null, array(), 0, 201);
+        // if the image does already exist and is assigned to a collection do nothing
+        if($existingImage===null){
+            try{
+                $instagramImage = new InstagramImage();
+                $instagramImage->setUri($shortLink);
+                $instagramImage->setUsername($username);
+                $instagramImage->setInstagramCollection($instagramCollection);
+
+                $this->instagramImageRepository->add($instagramImage);
+                $this->persistenceManager->persistAll();
+                $success = true;
+            }
+            catch(Exception $e){
+                // TODO: log the exception here
+                $success = false;
+            }
+        }
+        $this->view->assign('value', $success);
+
     }
 
 	/**

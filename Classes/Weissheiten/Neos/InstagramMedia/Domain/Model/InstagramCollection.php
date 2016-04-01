@@ -35,7 +35,7 @@ class InstagramCollection {
     /**
      * The InstagramImages contained in this blog
      *
-     * @ORM\OneToMany(mappedBy="instagramcollection")
+     * @ORM\OneToMany(mappedBy="instagramcollection", orphanRemoval=true)
      * @ORM\OrderBy({"date" = "DESC"})
      * @var Collection<InstagramImage>
      */

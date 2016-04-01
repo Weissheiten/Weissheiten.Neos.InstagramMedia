@@ -25,35 +25,35 @@
                    <f:form.submit value="{neos:backend.translate(id: 'add', value: 'Add')}" class="neos-button neos-button-primary" />
                 </f:form>
             </div>
-
-
         </aside>
 
         <div class="instagramAssets">
             <f:if condition="{instagramSearchResult}">
+                <f:render partial="InstagramSearchResult" arguments="{'instagramSearchResult':instagramSearchResult}" />
+            </f:if>
+
+            <f:if condition="{instagramCollectionImageList}">
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="neos-thumbnails asset-list">
-                            <f:for each="{instagramSearchResult}" as="searchResult">
-                                <li>
-                                    <f:render partial="instagramImage" arguments="{'instagramImage':searchResult}"></f:render>
-                                </li>
+                            <f:for each="{instagramCollectionImageList}" as="instagramImage">
+                                <f:render partial="instagramCollectionImage" arguments="{'instagramImage': instagramImage}"></f:render>
                             </f:for>
                         </ul>
                     </div>
                 </div>
             </f:if>
+
         </div>
     </div>
 <div style="clear:both;"></div>
 </f:section>
 
 <f:section name="Scripts">
-    <f:form method="post" id="link-image-to-instagramcollection-form" class="createInstagramCollection" action="createInstagramImageAndAddToCollection">
+    <f:form method="post" id="link-image-to-instagramcollection-form" class="createInstagramCollection" action="createInstagramImageAndAddToCollection" format="json">
         <f:form.hidden name="shortLink" class="form-control" id="link-image-to-instagramcollection-form-imageShortlink" /><br/>
         <f:form.hidden name="username" class="form-control" id="link-image-to-instagramcollection-form-imageUsername" /><br/>
         <f:form.hidden name="instagramCollection[__identity]" id="link-image-to-instagramcollection-form-imagecollection" />
-        <f:form.submit></f:form.submit>
     </f:form>
 
 

@@ -83,3 +83,12 @@ form.createInstagramCollection input[type="submit"], form.createInstagramCollect
 .neos aside.instagramCollectionList .neos-button{
     background-color: #323232;
 }
+
+div.neos-img-container button.instagram-media-delete{
+    position: relative;
+    top: -42px;
+    right: 2px;
+    float: right;
+    background-color: #222;
+    opacity: .5;
+}
