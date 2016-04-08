@@ -86,8 +86,8 @@ form.createInstagramCollection input[type="submit"], form.createInstagramCollect
 
 div.neos-img-container button.instagram-media-delete{
     position: relative;
-    top: -42px;
-    right: 2px;
+    top: -40px;
+    right: 0px;
     float: right;
     background-color: #222;
     opacity: .5;

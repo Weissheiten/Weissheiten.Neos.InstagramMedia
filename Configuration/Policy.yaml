@@ -4,7 +4,7 @@ privilegeTargets:
       matcher: 'method(Weissheiten\Neos\InstagramMedia\Controller\CollectionController->(index|create|delete|update|edit)Action())'
 
     'Weissheiten.Neos.ManageInstagramCollections':
-      matcher: 'method(Weissheiten\Neos\InstagramMedia\Controller\CollectionController->(createInstagramCollection|editInstagramCollection|updateInstagramCollection|deleteInstagramCollection|createInstagramImageAndAddToCollection)Action())'
+      matcher: 'method(Weissheiten\Neos\InstagramMedia\Controller\CollectionController->(createInstagramCollection|editInstagramCollection|updateInstagramCollection|deleteInstagramCollection|createInstagramImageAndAddToCollection|deleteInstagramImageFromCollection)Action())'
 
     'Weissheiten.Neos.InstagramMedia:LoginControllerActions':
           matcher: 'method(Weissheiten\Neos\InstagramMedia\Controller\LoginController->(login)Action())'

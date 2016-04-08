@@ -11,7 +11,7 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A blog that contains a list of posts
+ * A collection of Instagram Images
  *
  * @Flow\Entity
  */

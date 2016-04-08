@@ -1,0 +1,3 @@
+prototype(Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery){
+    instagramImageCollection = ${q(node).property('instagramImageCollection') ? InstagramMediaLibrary.instagramMediaQueryByCollection([q(node).property('flavorImageCollection')) : ''}
+}

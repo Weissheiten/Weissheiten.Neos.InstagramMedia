@@ -1,0 +1,28 @@
+<div class="neos-img-container">
+    <a href="{instagramImage.uri}"><img src="{instagramImage.uri}media/?size=t" /><br />
+        {instagramImage.username}
+    </a>
+    <button class="neos-button neos-media-delete instagram-media-delete" title="" data-neos-toggle="tooltip" data-modal="instagramImage-{instagramImage -> f:format.identifier()}" data-label="screenshot.png" data-object-identifier="{instagramImage-> f:format.identifier()}" data-original-title="Delete asset"><i class="icon-trash icon-white"></i></button>
+
+    <div class="neos-hide" id="instagramImage-{instagramImage -> f:format.identifier()}">
+        <div class="neos-modal">
+            <div class="neos-modal-header">
+                <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+                <div class="neos-header">Do you really want to remove this image ("{instagramImage.uri}")?</div>
+                <div>
+                    <div class="neos-subheader">
+                        <p>This will remove the image from the collection. This operation cannot be undone.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="neos-modal-footer">
+                <a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+                <f:form action="deleteInstagramImageFromCollection" arguments="{instagramImage: instagramImage}" class="neos-inline">
+                    <button type="submit" class="neos-button neos-button-danger" title="remove the image">
+                        Yes, remove the image from the collection
+                    </button>
+                </f:form>
+            </div>
+        </div>
+    </div>
+</div>

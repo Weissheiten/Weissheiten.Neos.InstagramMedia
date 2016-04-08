@@ -128,6 +128,25 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 		$this->view->assign('value', $success);
 	}
 
+	/***
+	 * Removes an instagram image from a collection
+	 *
+	 * @param InstagramImage $instagramImage
+	 * @return void
+	 */
+	public function deleteInstagramImageFromCollectionAction(InstagramImage $instagramImage){
+		$instagramCollection = $instagramImage->getInstagramCollection();
+		if($instagramCollection!==null){
+			$instagramCollection->removeInstagramImage($instagramImage);
+			$this->persistenceManager->update($instagramCollection);
+            $this->redirect('index', null, null, array('listInstagramCollectionImages' => $instagramCollection), 0, 201);
+		}
+		else{
+			$this->addFlashMessage(sprintf('There was no InstagramCollection found to which this image is assigned.', htmlspecialchars($instagramCollection->getTitle())));
+		}
+	}
+
+
     /**
      * @param InstagramCollection $instagramCollection
      * @param Uri $shortLink
@@ -197,7 +216,7 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
      */
     public function updateInstagramCollectionAction(InstagramCollection $instagramCollection){
         $this->instagramCollectionRepository->update($instagramCollection);
-        $this->addFlashMessage('The Instagram Collection "%s" has been updated.', 'User updated', Message::SEVERITY_OK, array($instagramCollection->getTitle()), 1412374498);
+        $this->addFlashMessage('The Instagram Collection "%s" has been updated.', 'Collection updated', Message::SEVERITY_OK, array($instagramCollection->getTitle()), 1412374498);
         $this->redirect('index');
     }
 
