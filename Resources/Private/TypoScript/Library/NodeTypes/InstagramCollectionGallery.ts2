@@ -1,3 +1,12 @@
-prototype(Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery){
-    instagramImageCollection = ${q(node).property('instagramImageCollection') ? InstagramMediaLibrary.instagramMediaQueryByCollection([q(node).property('flavorImageCollection')) : ''}
+prototype(Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery) >
+prototype(Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery) < prototype(TYPO3.Neos:Content){
+    templatePath = 'resource://Weissheiten.Neos.InstagramMedia/Private/Templates/NodeTypes/InstagramCollectionGallery.html'
+    sectionName = 'instagramCollectionGallery'
+
+    partialRootPath = 'resource://Weissheiten.Neos.InstagramMedia/Private/Partials'
+    instagramImageCollection = ${q(node).property('instagramImageCollection') ? InstagramMediaLibrary.instagramMediaQueryByCollection([q(node).property('instagramImageCollection'),100]) : ''}
+
+    @cache {
+        mode = 'nocache'
+    }
 }
