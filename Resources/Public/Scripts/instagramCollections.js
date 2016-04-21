@@ -97,4 +97,18 @@
         $('[type="submit"]', $modal).focus();
     });
 
+    $('#searchresults-next').click(function(){
+        var maxImageId = $('ul.neos-thumbnails li:last-child() a img').attr('data-image-id');
+        $('#search-min-id').val('');
+        $('#search-term').val($('#search-last-term').val());
+        $('#search-form').submit();
+    });
+
+    $('#searchresults-prev').click(function(){
+        var minImageId = $('ul.neos-thumbnails li:first-child() a img').attr('data-image-id');
+        $('#search-max-id').val('');
+        $('#search-term').val($('#search-last-term').val());
+        $('#search-form').submit();
+    });
+
 })(jQuery);

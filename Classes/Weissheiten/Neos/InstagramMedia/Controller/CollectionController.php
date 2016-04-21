@@ -86,15 +86,16 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 	 * Show a list of InstagramCollections and their properties
      *
      * @param string $searchTerm
+     * @param string $searchMin
+     * @param string $searchMax
      * @param InstagramCollection $listInstagramCollectionImages
 	 * @return void
 	 */
-	public function indexAction($searchTerm = null, InstagramCollection $listInstagramCollectionImages = null) {
+	public function indexAction($searchTerm = null, $searchMin = null, $searchMax = null, InstagramCollection $listInstagramCollectionImages = null) {
         $instagramCollections = $this->instagramCollectionRepository->findAll();
-
         $userData = $this->authenticationFlow->getUserData();
 
-        $instagramSearchResult = ($searchTerm!==null) ? $this->instagramApiClient->searchByTag($searchTerm,20) : null;
+        $instagramSearchResult = ($searchTerm!==null) ? $this->instagramApiClient->searchByTag($searchTerm,20, $searchMin, $searchMax) : null;
 
         $instagramCollectionImageList = ($listInstagramCollectionImages!==null) ? $listInstagramCollectionImages->getInstagramImages() : null;
 
@@ -102,12 +103,26 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
             'argumentNamespace' => $this->request->getArgumentNamespace(),
             'userData' => $userData,
 			'instagramCollections' => $instagramCollections,
+            'lastSearchTerm' => $searchTerm,
             'instagramSearchResult' => $instagramSearchResult,
             'instagramCollectionImageList' => $instagramCollectionImageList,
             'settings' => $this->settings
 		));
-
 	}
+
+    /**
+     * Searches instagram for images with a specific tag and returns the given number of results,
+     * paging can be achieved by providing the first or last image of the last used batch of images
+     *
+     * @param $searchTerm
+     * @param int $count
+     * @param null $min_tag_id
+     * @param null $max_tag_id
+     */
+    public function searchByTag($searchTerm, $count = 10, $min_tag_id = null, $max_tag_id = null){
+        $imageset = $this->instagramApiClient->searchByTag($searchTerm, $count, $min_tag_id, $max_tag_id);
+        $this->view->assign('value', $imageset);
+    }
 
 
 	/**
