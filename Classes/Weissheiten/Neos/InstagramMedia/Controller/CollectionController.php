@@ -92,6 +92,7 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 	 * @return void
 	 */
 	public function indexAction($searchTerm = null, $searchMin = null, $searchMax = null, InstagramCollection $listInstagramCollectionImages = null) {
+
         $instagramCollections = $this->instagramCollectionRepository->findAll();
         $userData = $this->authenticationFlow->getUserData();
 
@@ -99,11 +100,13 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 
         $instagramCollectionImageList = ($listInstagramCollectionImages!==null) ? $listInstagramCollectionImages->getInstagramImages() : null;
 
+	//	\TYPO3\Flow\var_dump($instagramSearchResult);
+
         $this->view->assignMultiple(array(
             'argumentNamespace' => $this->request->getArgumentNamespace(),
             'userData' => $userData,
 			'instagramCollections' => $instagramCollections,
-            'lastSearchTerm' => $searchTerm,
+            'searchLastTerm' => $searchTerm,
             'instagramSearchResult' => $instagramSearchResult,
             'instagramCollectionImageList' => $instagramCollectionImageList,
             'settings' => $this->settings

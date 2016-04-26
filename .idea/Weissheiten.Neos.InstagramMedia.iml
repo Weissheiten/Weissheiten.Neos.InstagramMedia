@@ -8,5 +8,15 @@
     <content url="file://$MODULE_DIR$/../Weissheiten.OAuth2.ClientInstagram" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHP">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../DataDirectories/NeosDev/data/www/typo3-app" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../DataDirectories/NeosDev/data/www/typo3-app" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
