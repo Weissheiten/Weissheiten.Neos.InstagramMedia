@@ -10,14 +10,13 @@
         <aside class="instagramCollectionList">
             <div class="instagramSearch">
                 <div class="form-group">
-                    <form id="search-form" action="{f:uri.action(action: 'index')}" method="get" class="neos-search">
-                        <input type="search" id="search-term" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[searchTerm]', else: 'searchTerm')}" placeholder="Search" value="{searchTerm}" autofocus="autofocus" />
-                        <input type="hidden" id="search-min-id" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[searchMin]', else: 'searchMin')}" value="{instagramSearchResult.pagination.min_tag_id}" />
-                        <input type="hidden" id="search-max-id" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[searchMax]', else: 'searchMax')}" value="{instagramSearchResult.pagination.next_max_tag_id}" />
+                    <f:form method="post" id="search-form" action="searchByTag" class="neos-search" format="json">
+                        <input type="search" id="search-term" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[searchTerm]', else: 'searchTerm')}" placeholder="Search" autofocus="autofocus" />
+                        <input type="hidden" id="search-max-id" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[max_tag_id]', else: 'max_tag_id')}" />
                         <input type="hidden" id="search-last-term" name="{f:if(condition: argumentNamespace, then: '{argumentNamespace}[searchLastTerm]', else: 'searchLastTerm')}" value="{searchLastTerm}" />
 
-                        <button type="submit" title="Search in instagram" data-neos-toggle="tooltip"><i class="icon-search"></i></button>
-                    </form>
+                        <button id="search-submit" type="submit" title="Search in instagram" data-neos-toggle="tooltip"><i class="icon-search"></i></button>
+                    </f:form>
                 </div>
             </div>
 
@@ -32,22 +31,25 @@
         </aside>
 
         <div class="instagramAssets">
-            <f:if condition="{instagramSearchResult}">
-                <i class="icon-arrow-up" id="searchresults-prev" action=""></i>
-                <i class="icon-arrow-down" id="searchresults-next" action=""></i>
+            <div id="instagramSearchResults" style="display:none;">
                 <div class="row">
                     <div class="col-xs-12">
-                        <ul class="neos-thumbnails asset-list">
+                        <ul id="instagramSearchResultsList" class="neos-thumbnails asset-list">
                             <f:for each="{instagramSearchResult.data}" as="searchResult">
                                 <li><f:render partial="instagramImage" arguments="{'instagramImage':searchResult}"></f:render></li>
                             </f:for>
                         </ul>
+                        <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <button id="search-more" value="more" class="neos-button neos-button-primary" style="display:none;">More</button>
+                        </div>
+                        </div>
                     </div>
                 </div>
-            </f:if>
+            </div>
 
             <f:if condition="{instagramCollectionImageList}">
-                <div class="row">
+                <div id="instagramCollectionImageList" class="row">
                     <div class="col-xs-12">
                         <ul class="neos-thumbnails asset-list">
                             <f:for each="{instagramCollectionImageList}" as="instagramImage">

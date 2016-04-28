@@ -86,21 +86,18 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 	 * Show a list of InstagramCollections and their properties
      *
      * @param string $searchTerm
-     * @param string $searchMin
-     * @param string $searchMax
+     * @param string $max_id
      * @param InstagramCollection $listInstagramCollectionImages
 	 * @return void
 	 */
-	public function indexAction($searchTerm = null, $searchMin = null, $searchMax = null, InstagramCollection $listInstagramCollectionImages = null) {
+	public function indexAction($searchTerm = null, $max_id = null, InstagramCollection $listInstagramCollectionImages = null) {
 
         $instagramCollections = $this->instagramCollectionRepository->findAll();
         $userData = $this->authenticationFlow->getUserData();
 
-        $instagramSearchResult = ($searchTerm!==null) ? $this->instagramApiClient->searchByTag($searchTerm,20, $searchMin, $searchMax) : null;
+        $instagramSearchResult = ($searchTerm!==null) ? $this->instagramApiClient->searchByTag($searchTerm,20, $max_id) : null;
 
         $instagramCollectionImageList = ($listInstagramCollectionImages!==null) ? $listInstagramCollectionImages->getInstagramImages() : null;
-
-	//	\TYPO3\Flow\var_dump($instagramSearchResult);
 
         $this->view->assignMultiple(array(
             'argumentNamespace' => $this->request->getArgumentNamespace(),
@@ -117,13 +114,14 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
      * Searches instagram for images with a specific tag and returns the given number of results,
      * paging can be achieved by providing the first or last image of the last used batch of images
      *
-     * @param $searchTerm
+     * @param string $searchTerm
      * @param int $count
-     * @param null $min_tag_id
-     * @param null $max_tag_id
+     * @param string $max_tag_id
+     * @return array
      */
-    public function searchByTag($searchTerm, $count = 10, $min_tag_id = null, $max_tag_id = null){
-        $imageset = $this->instagramApiClient->searchByTag($searchTerm, $count, $min_tag_id, $max_tag_id);
+    public function searchByTagAction($searchTerm, $count = 10, $max_tag_id = null){
+        $userData = $this->authenticationFlow->getUserData();
+		$imageset = $this->instagramApiClient->searchByTag($searchTerm, $count, $max_tag_id);
         $this->view->assign('value', $imageset);
     }
 
