@@ -43,7 +43,6 @@ class InstagramMediaQuery implements ProtectedContextAwareInterface {
         if($collection!==null){
             $flavorImages = $collection->getInstagramImages()->slice(0,$limit);
         }
-
         return $flavorImages;
     }
     /**
