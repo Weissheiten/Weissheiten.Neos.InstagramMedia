@@ -26,9 +26,7 @@ TYPO3:
             privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
             additionalResources:
               javaScripts: ['resource://TYPO3.Twitter.Bootstrap/Public/Libraries/jQuery/jquery-1.10.1.min.js', 'resource://TYPO3.Twitter.Bootstrap/Public/2/js/bootstrap.min.js']
-              styleSheets: ['resource://TYPO3.Twitter.Bootstrap/Public/2/css/bootstrap.min.css',
-                            'resource://TYPO3.Media/Public/Libraries/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.css',
-                            'resource://Weissheiten.Neos.InstagramMedia/Public/CSS/InstagramMedia.css']
+              styleSheets: ['resource://TYPO3.Twitter.Bootstrap/Public/2/css/bootstrap.min.css', 'resource://TYPO3.Media/Public/Libraries/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.css', 'resource://Weissheiten.Neos.InstagramMedia/Public/CSS/InstagramMedia.css']
   TypoScript:
     defaultContext:
       InstagramMediaLibrary: 'Weissheiten\Neos\InstagramMedia\TypoScript\Eel\Helper\InstagramMediaQuery'
