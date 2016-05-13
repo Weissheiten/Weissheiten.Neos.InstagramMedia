@@ -26,7 +26,7 @@ roles:
         permission: GRANT
 
 roles:
-  'TYPO3.Neos:InstagramEditor':
+  'Weissheiten.Neos:InstagramEditor':
     privileges:
       -
         privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
