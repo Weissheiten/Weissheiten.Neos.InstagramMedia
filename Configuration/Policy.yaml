@@ -24,8 +24,8 @@ roles:
       -
         privilegeTarget: 'Weissheiten.Neos.InstagramMedia:LoginControllerActions'
         permission: GRANT
-        
-  'Weissheiten.Neos:InstagramEditor':
+
+  'TYPO3.Neos:InstagramEditor':
     privileges:
       -
         privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
