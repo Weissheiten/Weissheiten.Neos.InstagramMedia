@@ -6,19 +6,19 @@ namespace Weissheiten\Neos\InstagramMedia\Controller;
  *                                                                        */
 
 use Flowpack\OAuth2\Client\Exception;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Message;
-use TYPO3\Flow\Mvc\ActionRequest;
-use TYPO3\Flow\Http\Uri;
+use Neos\Flow\Annotations as Flow;
+use Neos\Error\Messages\Message;
+use Neos\Flow\Mvc\ActionRequest;
+use Neos\Flow\Http\Uri;
 
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramImage;
 use Weissheiten\OAuth2\ClientInstagram\Endpoint;
 use Weissheiten\OAuth2\ClientInstagram\Token;
 
-use TYPO3\Party\Domain\Service\PartyService;
+use Neos\Party\Domain\Service\PartyService;
 
-class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleController {
+class CollectionController extends \Neos\Neos\Controller\Module\AbstractModuleController {
 
 	/**
 	 * @Flow\Inject
@@ -40,12 +40,12 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\AccountRepository
+	 * @var \Neos\Flow\Security\AccountRepository
 	 */
 	protected $accountRepository;
 
 	/**
-	 * @var \TYPO3\Neos\Domain\Service\UserService
+	 * @var \Neos\Neos\Domain\Service\UserService
 	 * @Flow\Inject
 	 */
 	protected $userService;
@@ -57,7 +57,7 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
 	protected $partyService;
 
 	/**
-	 * @var \TYPO3\Flow\Security\Context
+	 * @var \Neos\Flow\Security\Context
 	 * @Flow\Inject
 	 */
 	protected $securityContext;
@@ -78,8 +78,8 @@ class CollectionController extends \TYPO3\Neos\Controller\Module\AbstractModuleC
      * @var array
      */
     protected $viewFormatToObjectNameMap = array(
-        'html' => 'TYPO3\Fluid\View\TemplateView',
-        'json' => 'TYPO3\Flow\Mvc\View\JsonView'
+        'html' => 'Neos\FluidAdaptor\View\TemplateView',
+        'json' => 'Neos\Flow\Mvc\View\JsonView'
     );
 
     /**

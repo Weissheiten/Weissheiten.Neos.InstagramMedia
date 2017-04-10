@@ -1,32 +1,31 @@
-TYPO3:
+
+Neos:
   Flow:
     mvc:
       routes:
-        'Weissheiten.Neos.InstagramMedia':
-          'position': 'end'
+        Weissheiten.Neos.InstagramMedia:
+          position: end
   Neos:
-    #userInterface:
-      #requireJsPathMapping:
-      #  'TYPO3.Neos.GoogleAnalytics/Inspector/Editors': 'resource://TYPO3.Neos.GoogleAnalytics/Public/Scripts/Inspector/Editors'
-
-    #translation:
-    #  autoInclude:
-    #    'Weissheiten.Neos.InstagramMedia': ['NodeTypes/*']
-    typoScript:
-      autoInclude:
-        'Weissheiten.Neos.InstagramMedia': TRUE
     modules:
       management:
         submodules:
           InstagramMedia:
             label: 'Instagram Media'
-            controller: 'Weissheiten\Neos\InstagramMedia\Controller\CollectionController'
+            controller: Weissheiten\Neos\InstagramMedia\Controller\CollectionController
             description: 'Instagram Collections'
-            icon: 'icon-instagram'
+            icon: icon-instagram
             privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
             additionalResources:
-              javaScripts: ['resource://TYPO3.Twitter.Bootstrap/Public/Libraries/jQuery/jquery-1.10.1.min.js', 'resource://TYPO3.Twitter.Bootstrap/Public/2/js/bootstrap.min.js']
-              styleSheets: ['resource://TYPO3.Twitter.Bootstrap/Public/2/css/bootstrap.min.css', 'resource://TYPO3.Media/Public/Libraries/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.css', 'resource://Weissheiten.Neos.InstagramMedia/Public/CSS/InstagramMedia.css']
-  TypoScript:
+              javaScripts:
+                - 'resource://Neos.Twitter.Bootstrap/Public/Libraries/jQuery/jquery-1.10.1.min.js'
+                - 'resource://Neos.Twitter.Bootstrap/Public/2/js/bootstrap.min.js'
+              styleSheets:
+                - 'resource://Neos.Twitter.Bootstrap/Public/2/css/bootstrap.min.css'
+                - 'resource://Neos.Media/Public/Libraries/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.css'
+                - 'resource://Weissheiten.Neos.InstagramMedia/Public/CSS/InstagramMedia.css'
+    fusion:
+      autoInclude:
+        Weissheiten.Neos.InstagramMedia: true
+  Fusion:
     defaultContext:
-      InstagramMediaLibrary: 'Weissheiten\Neos\InstagramMedia\TypoScript\Eel\Helper\InstagramMediaQuery'
+      InstagramMediaLibrary: Weissheiten\Neos\InstagramMedia\TypoScript\Eel\Helper\InstagramMediaQuery

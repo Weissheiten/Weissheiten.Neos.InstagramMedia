@@ -4,10 +4,10 @@ namespace Weissheiten\Neos\InstagramMedia\TypoScript\Eel\Helper;
  * Custom Eel Helper for Querying the media library.          *
  *                                                            *
  *                                                            */
-use TYPO3\Eel\ProtectedContextAwareInterface;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Media\Domain\Model\Tag;
+use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Media\Domain\Model\Tag;
 /**
  * Media Query helper for Eel contexts
  */
@@ -24,11 +24,11 @@ class InstagramMediaQuery implements ProtectedContextAwareInterface {
      */
     public function instagramMediaQueryByCollection(array $configuration) {
         if(!isset($configuration[0]) || !is_string($configuration[0])){
-            throw new \TYPO3\Eel\EvaluationException('InstagramMediaQuery first parameter: needs an string that sets the title of the collection to fetch');
+            throw new \Neos\Eel\EvaluationException('InstagramMediaQuery first parameter: needs an string that sets the title of the collection to fetch');
         }
 
         if(!isset($configuration[1]) || !is_numeric($configuration[1])){
-            throw new \TYPO3\Eel\EvaluationException('mediaLibrary second parameter: needs a numeric value that defines the number of objects to fetch from the instagram collection');
+            throw new \Neos\Eel\EvaluationException('mediaLibrary second parameter: needs a numeric value that defines the number of objects to fetch from the instagram collection');
         }
 
         $collectionIdentifier = $configuration[0];

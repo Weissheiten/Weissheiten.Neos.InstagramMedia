@@ -13,15 +13,15 @@ namespace Weissheiten\Neos\InstagramMedia\Service\DataSource;
  *       label: 'Instagram Collection'                                              *
  *       inspector:                                                                 *
  *         group: 'flavor'                                                          *
- *         editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'                   *
+ *         editor: 'Neos.Neos/Inspector/Editors/SelectBoxEditor'                   *
  *         editorOptions:                                                           *
  *           dataSourceIdentifier: 'weissheiten-neos-instagrammedia-collections'    *
  *                                                                                  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Neos\Service\DataSource\AbstractDataSource;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
-use \TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Neos\Service\DataSource\AbstractDataSource;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
+use \Neos\Flow\Persistence\PersistenceManagerInterface;
 use Weissheiten\Neos\InstagramMedia\Domain\Repository\InstagramCollectionRepository;
 
 class InstagramCollectionDataSource extends AbstractDataSource{
@@ -34,7 +34,7 @@ class InstagramCollectionDataSource extends AbstractDataSource{
 
     /**
      * @Flow\Inject
-     * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+     * @var \Neos\Flow\Persistence\PersistenceManagerInterface
      */
     protected $persistenceManager;
 

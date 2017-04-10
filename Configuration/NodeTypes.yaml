@@ -1,39 +1,39 @@
+
 'Weissheiten.Neos.InstagramMedia:InstagramCollectionMixin':
-  abstract: TRUE
+  abstract: true
   ui:
     inspector:
       groups:
         flavor:
-          label: 'Flavor'
+          label: Flavor
   properties:
     flavorImageCollection:
-      type: 'string'
+      type: string
       ui:
         label: 'Instagram Collection'
         inspector:
-          group: 'flavor'
-          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          group: flavor
+          editor: Neos.Neos/Inspector/Editors/SelectBoxEditor
           editorOptions:
-            dataSourceIdentifier: 'weissheiten-neos-instagrammedia-collections'
-
+            dataSourceIdentifier: weissheiten-neos-instagrammedia-collections
 'Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery':
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'Neos.Neos:Content': true
   ui:
     label: 'Instagram Collection Gallery'
-    icon: 'icon-instagram'
-    group: 'plugins'
+    icon: icon-instagram
+    group: plugins
     inspector:
       groups:
         instagram:
-          label: 'Instagram'
+          label: Instagram
   properties:
     instagramImageCollection:
-      type: 'string'
+      type: string
       ui:
         label: 'Instagram Collection'
         inspector:
-          group: 'instagram'
-          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          group: instagram
+          editor: Neos.Neos/Inspector/Editors/SelectBoxEditor
           editorOptions:
-            dataSourceIdentifier: 'weissheiten-neos-instagrammedia-collections'
+            dataSourceIdentifier: weissheiten-neos-instagrammedia-collections

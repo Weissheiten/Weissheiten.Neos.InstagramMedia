@@ -1,5 +1,5 @@
 prototype(Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery) >
-prototype(Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery) < prototype(TYPO3.Neos:Content){
+prototype(Weissheiten.Neos.InstagramMedia:InstagramCollectionGallery) < prototype(Neos.Neos:Content){
     templatePath = 'resource://Weissheiten.Neos.InstagramMedia/Private/Templates/NodeTypes/InstagramCollectionGallery.html'
     sectionName = 'instagramCollectionGallery'
 

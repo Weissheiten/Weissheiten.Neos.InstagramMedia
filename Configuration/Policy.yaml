@@ -1,5 +1,5 @@
 privilegeTargets:
-  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
     'Weissheiten.Neos.InstagramMedia:CollectionControllerActions':
       matcher: 'method(Weissheiten\Neos\InstagramMedia\Controller\CollectionController->(index|create|delete|update|edit)Action())'
 
@@ -13,7 +13,7 @@ privilegeTargets:
     #  matcher: 'method(Weissheiten\Neos\InstagramMedia\Controller\
 
 roles:
-  'TYPO3.Neos:Administrator':
+  'Neos.Neos:Administrator':
     privileges:
       -
         privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
@@ -25,7 +25,7 @@ roles:
         privilegeTarget: 'Weissheiten.Neos.InstagramMedia:LoginControllerActions'
         permission: GRANT
 
-  'TYPO3.Neos:InstagramEditor':
+  'Neos.Neos:InstagramEditor':
     privileges:
       -
         privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'

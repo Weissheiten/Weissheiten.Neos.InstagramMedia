@@ -6,15 +6,15 @@ namespace Weissheiten\Neos\InstagramMedia\Controller;
  *                                                                                  */
 
 use Flowpack\OAuth2\Client\Exception;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Message;
-use TYPO3\Flow\Mvc\ActionRequest;
+use Neos\Flow\Annotations as Flow;
+use Neos\Error\Messages\Message;
+use Neos\Flow\Mvc\ActionRequest;
 use Weissheiten\Neos\InstagramMedia\Domain\Model\InstagramCollection;
 use Weissheiten\OAuth2\ClientInstagram\Endpoint;
 use Weissheiten\OAuth2\ClientInstagram\Token;
-use TYPO3\Party\Domain\Service\PartyService;
+use Neos\Party\Domain\Service\PartyService;
 
-class LoginController extends \TYPO3\Flow\Mvc\Controller\ActionController
+class LoginController extends \Neos\Flow\Mvc\Controller\ActionController
 {
     /**
      * Show the login form

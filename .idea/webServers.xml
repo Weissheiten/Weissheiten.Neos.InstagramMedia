@@ -3,10 +3,11 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="421fc4fa-118e-43b5-a00b-4a5a6ea20bb5" name="localNEOS" url="http://localhost">
-        <fileTransfer host="localhost" port="1122" privateKey="$USER_HOME$/.ssh/fwweissheiten" accessType="SFTP" passphrase="dfefdfcddfcbdfcbdfecdfcfdfcddfcfdfebdfdfdfcedfc3dfd9dfccdfd7" username="www" keyPair="true">
+        <fileTransfer host="localhost" port="1122" privateKey="$USER_HOME$/.ssh/fwweissheiten" rootFolder="/data/www/typo3-app" accessType="SFTP" keyPair="true" username="www" passphrase="dfefdfcddfcbdfcbdfecdfcfdfcddfcfdfebdfdfdfcedfc3dfd9dfccdfd7">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
+          <option name="port" value="1122" />
         </fileTransfer>
       </webServer>
     </option>
