@@ -3,7 +3,7 @@
     "type": "typo3-flow-plugin",
     "description": "Add description here",
     "require": {
-        "typo3/flow": "*"
+        "typo3/flow": "~4.0"
     },
     "autoload": {
         "psr-0": {
