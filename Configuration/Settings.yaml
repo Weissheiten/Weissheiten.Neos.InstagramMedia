@@ -21,7 +21,7 @@ Neos:
                 - 'resource://Neos.Twitter.Bootstrap/Public/2/js/bootstrap.min.js'
               styleSheets:
                 - 'resource://Neos.Twitter.Bootstrap/Public/2/css/bootstrap.min.css'
-                - 'resource://Neos.Media/Public/Libraries/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.css'
+                - 'resource://Neos.Media.Browser/Public/Libraries/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.css'
                 - 'resource://Weissheiten.Neos.InstagramMedia/Public/CSS/InstagramMedia.css'
     fusion:
       autoInclude:
