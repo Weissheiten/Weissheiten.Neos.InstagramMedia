@@ -11,7 +11,7 @@
             <f:for each="{instagramImageCollection}" as="instagramImage">
                 <li>
                     <a href="{instagramImage.uri}" target="_blank">
-                        <img class="draggable-image" data-image-shortlink="{instagramImage.uri}" data-image-username="{instagramImage.username}" src="{instagramImage.uri}media/?size=m" width="180" height="180" /><br />
+                        <img class="img-responsive ce-iframe" data-image-shortlink="{instagramImage.uri}" data-image-username="{instagramImage.username}" data-ce-src="{instagramImage.uri}media/?size=m" width="180" height="180" /><br />
                         {instagramImage.user.username}
                     </a>
                 </li>
