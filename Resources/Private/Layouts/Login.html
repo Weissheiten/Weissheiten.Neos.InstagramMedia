@@ -5,7 +5,6 @@
     <title><f:render section="Title" /></title>
 
     <f:for each="{settings.styles}" as="style">
-        <f:debug>{style}</f:debug>
         <link rel="stylesheet" href="{f:uri.resource(path: style)}" />
     </f:for>
 </head>

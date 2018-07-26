@@ -1,4 +1,3 @@
-
 Neos:
   Flow:
     mvc:
@@ -13,7 +12,7 @@ Neos:
             label: 'Instagram Media'
             controller: Weissheiten\Neos\InstagramMedia\Controller\CollectionController
             description: 'Instagram Collections'
-            icon: icon-instagram
+            icon: 'fab fa-instagram'
             privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
             additionalResources:
               javaScripts:
