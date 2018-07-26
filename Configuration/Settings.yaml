@@ -12,7 +12,7 @@ Neos:
             label: 'Instagram Media'
             controller: Weissheiten\Neos\InstagramMedia\Controller\CollectionController
             description: 'Instagram Collections'
-            icon: 'fab fa-instagram'
+            icon: 'fas fa-camera-retro'
             privilegeTarget: 'Weissheiten.Neos.InstagramMedia:CollectionControllerActions'
             additionalResources:
               javaScripts:

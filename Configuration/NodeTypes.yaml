@@ -21,7 +21,7 @@
     'Neos.Neos:Content': true
   ui:
     label: 'Instagram Collection Gallery'
-    icon: 'fab fa-instagram'
+    icon: 'fas fa-camera-retro'
     group: plugins
     inspector:
       groups:
